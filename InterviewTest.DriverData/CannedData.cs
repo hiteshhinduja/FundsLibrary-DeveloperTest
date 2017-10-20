@@ -293,5 +293,189 @@ namespace InterviewTest.DriverData
                 AverageSpeed = 0m
             }
         };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverDataWithPeriodsHavingZeroAverageSpeed = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(10, 30, 0),
+                End = _day + new TimeSpan(11, 50, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 20, 0),
+                End = _day + new TimeSpan(10, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(13, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 0, 0),
+                End = _day + new TimeSpan(13, 35, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 50, 0),
+                End = _day + new TimeSpan(15, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 10, 0),
+                End = _day + new TimeSpan(15, 40, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 40, 0),
+                End = _day + new TimeSpan(16, 25, 0),
+                AverageSpeed = 0m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverDataWithPeriodsHavingAverageSpeedMoreThanMaxSpeed = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 20, 0),
+                End = _day + new TimeSpan(10, 0, 0),
+                AverageSpeed = 209m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(10, 30, 0),
+                End = _day + new TimeSpan(11, 50, 0),
+                AverageSpeed = 202m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(13, 0, 0),
+                AverageSpeed = 214m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 0, 0),
+                End = _day + new TimeSpan(13, 35, 0),
+                AverageSpeed = 202m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 50, 0),
+                End = _day + new TimeSpan(15, 0, 0),
+                AverageSpeed = 210m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 10, 0),
+                End = _day + new TimeSpan(15, 40, 0),
+                AverageSpeed = 205m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 40, 0),
+                End = _day + new TimeSpan(16, 25, 0),
+                AverageSpeed = 209m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverDataWithPeriodsHavingAverageSpeedEqualToMaxSpeed = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 20, 0),
+                End = _day + new TimeSpan(10, 0, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(10, 30, 0),
+                End = _day + new TimeSpan(11, 50, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(13, 0, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 0, 0),
+                End = _day + new TimeSpan(13, 35, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 50, 0),
+                End = _day + new TimeSpan(15, 0, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 10, 0),
+                End = _day + new TimeSpan(15, 40, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 40, 0),
+                End = _day + new TimeSpan(16, 25, 0),
+                AverageSpeed = 200m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverDataWithPeriodsHavingNoGapsAndAverageSpeedLessThanOrEqualToMaxSpeed = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 20, 0),
+                End = _day + new TimeSpan(10, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(10, 0, 0),
+                End = _day + new TimeSpan(12, 0, 0),
+                AverageSpeed = 168m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(13, 0, 0),
+                AverageSpeed = 149m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 0, 0),
+                End = _day + new TimeSpan(14, 30, 0),
+                AverageSpeed = 199m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(14, 30, 0),
+                End = _day + new TimeSpan(15, 0, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 0, 0),
+                End = _day + new TimeSpan(15, 40, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(15, 40, 0),
+                End = _day + new TimeSpan(16, 25, 0),
+                AverageSpeed = 0m
+            }
+        };
     }
 }
