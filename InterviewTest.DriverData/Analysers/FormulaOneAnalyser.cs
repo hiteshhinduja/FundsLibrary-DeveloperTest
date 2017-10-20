@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InterviewTest.DriverData.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace InterviewTest.DriverData.Analysers
@@ -6,7 +7,8 @@ namespace InterviewTest.DriverData.Analysers
 	// BONUS: Why internal?
 	internal class FormulaOneAnalyser : IAnalyser
 	{
-		public HistoryAnalysis Analyse(IReadOnlyCollection<Period> history)
+        public AnalyserConfiguration AnalyserConfiguration { get; set; }
+        public HistoryAnalysis Analyse(IReadOnlyCollection<Period> history)
 		{
 			throw new NotImplementedException();
 		}

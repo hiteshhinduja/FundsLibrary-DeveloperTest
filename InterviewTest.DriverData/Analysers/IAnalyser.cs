@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using InterviewTest.DriverData.Entities;
+using System.Collections.Generic;
 
 namespace InterviewTest.DriverData.Analysers
 {
 	public interface IAnalyser
 	{
-		HistoryAnalysis Analyse(IReadOnlyCollection<Period> history);
+        AnalyserConfiguration AnalyserConfiguration { get; set; }
+        HistoryAnalysis Analyse(IReadOnlyCollection<Period> history);
 	}
 }
