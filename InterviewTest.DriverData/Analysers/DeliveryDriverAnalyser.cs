@@ -10,6 +10,17 @@ namespace InterviewTest.DriverData.Analysers
     internal class DeliveryDriverAnalyser : IAnalyser
     {
         public AnalyserConfiguration AnalyserConfiguration { get; set; }
+
+        public DeliveryDriverAnalyser()
+        {
+
+        }
+
+        public DeliveryDriverAnalyser(AnalyserConfiguration _analysisConfiguration)
+        {
+            AnalyserConfiguration = _analysisConfiguration;
+        }
+
         public HistoryAnalysis Analyse(IReadOnlyCollection<Period> history)
         {
             List<Result> ratings = new List<Result>();
