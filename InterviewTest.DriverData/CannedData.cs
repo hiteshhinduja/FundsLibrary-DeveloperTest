@@ -134,7 +134,7 @@ namespace InterviewTest.DriverData
             }
         };
 
-        public static readonly IReadOnlyCollection<Period> DeliveryDriverDataWithPeriodsWithinPermittedTimeSlot = new[]
+        public static readonly IReadOnlyCollection<Period> DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem = new[]
         {
             new Period
             {
