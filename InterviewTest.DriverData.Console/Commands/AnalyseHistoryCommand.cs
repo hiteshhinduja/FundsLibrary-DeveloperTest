@@ -24,6 +24,7 @@ namespace InterviewTest.Commands
 
 			Console.Out.WriteLine($"Analysed period: {analysis.AnalysedDuration:g}");
 			Console.Out.WriteLine($"Driver rating: {analysis.DriverRating:P}");
-		}
+            Console.Out.WriteLine($"Driver rating after penalty: {analysis.DriverRatingAfterPenalty:P}");
+        }
 	}
 }

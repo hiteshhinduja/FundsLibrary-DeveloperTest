@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyserTypeLookup\AnalyserLookupTest.cs" />
     <Compile Include="Analysers\FormulaOneAnalyserTests.cs" />
     <Compile Include="Analysers\DeliveryDriverAnalyserTests.cs" />
     <Compile Include="Analysers\GetawayDriverAnalyserTests.cs" />

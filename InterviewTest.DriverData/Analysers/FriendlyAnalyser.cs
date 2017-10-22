@@ -8,6 +8,16 @@ namespace InterviewTest.DriverData.Analysers
 	internal class FriendlyAnalyser : IAnalyser
 	{
         public AnalyserConfiguration AnalyserConfiguration { get; set; }
+
+        public FriendlyAnalyser()
+        {
+
+        }
+
+        public FriendlyAnalyser(AnalyserConfiguration _analyserConfiguration)
+        {
+            AnalyserConfiguration = _analyserConfiguration;
+        }
         public HistoryAnalysis Analyse(IReadOnlyCollection<Period> history)
 		{
 			return new HistoryAnalysis
