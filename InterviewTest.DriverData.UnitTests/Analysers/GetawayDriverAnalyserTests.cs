@@ -2,6 +2,7 @@
 using InterviewTest.DriverData.Analysers;
 using NUnit.Framework;
 using InterviewTest.DriverData.Entities;
+using InterviewTest.DriverData.Helpers;
 
 namespace InterviewTest.DriverData.UnitTests.Analysers
 {
@@ -192,6 +193,30 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
             Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty).Within(0.001m));
             Assert.AreEqual(actualResult.DriverRating, actualResult.DriverRatingAfterPenalty);
+        }
+
+        [Test]
+        public void WhenValidHistoryDataIsLoadedFromFile_ShouldYieldCorrectValues()
+        {
+            //Arrange
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = TimeSpan.FromHours(1),
+                DriverRating = 0.1813m,
+                DriverRatingAfterPenalty = 0.1813m
+            };
+            var analyser = new GetawayDriverAnalyser();
+            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m, PenaltyForFaultyRecording = 0.5m };
+            var fileName = "History.csv";
+            var data = CannedDataReader.LoadCannedData(fileName);
+
+            //Act
+            var actualResult = analyser.Analyse(data);
+
+            //Assert
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
+            Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty).Within(0.001m));
         }
     }
 }
