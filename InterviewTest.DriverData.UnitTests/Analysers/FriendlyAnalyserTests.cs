@@ -11,7 +11,12 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 		public void ShouldAnalyseWholePeriodAndReturn1ForDriverRating()
 		{
 			// BONUS: What is AAA?
-
+            /*
+             * AAA is Arrange, Act, Assert which is a three step fundamental process for writing an ideal unit test case
+             * Arrange: Prepare the test data such as inputs to be given, expected output, etc.
+             * Act: Execute the code which is to be unit tested using the data prepared in Arrange step.
+             * Assert: Check the correctness (or incorrectness) of the actual output obtained in the Act step by comparing with the expected output.
+             */
 			var data = new[]
 			{
 				new Period

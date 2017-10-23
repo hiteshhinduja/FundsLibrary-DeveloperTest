@@ -7,8 +7,14 @@ namespace InterviewTest.DriverData
 	{
 		private static readonly DateTimeOffset _day = new DateTimeOffset(2016, 10, 13, 0, 0, 0, 0, TimeSpan.Zero);
 
-		// BONUS: What's so great about IReadOnlyCollections? 
-		public static readonly IReadOnlyCollection<Period> History = new[]
+        // BONUS: What's so great about IReadOnlyCollections?
+        /*
+         * IReadOnlyCollections are strongly-typed, read-only collection of elements
+         * The data in these collections cannot be modified during run time
+         * In this case, since the history data contains statistics for analysing the drivers,
+         * it is safe to declare this as IReadOnlyCollection to prevent any alteration of records which could lead to incorrect analysis.
+         */
+        public static readonly IReadOnlyCollection<Period> History = new[]
 		{
 			new Period
 			{
