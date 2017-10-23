@@ -29,8 +29,8 @@ namespace InterviewTest.DriverData.Analysers
             double duration = 0;
             decimal rating = 0;
 
-            //Return 0 duration and 0 rating if no periods available
-            if (history == null || history.Count == 0)
+            //Return 0 duration and 0 rating if no periods available or if configuration is not set
+            if (AnalyserConfiguration == null || history == null || history.Count == 0)
             {
                 return new HistoryAnalysis
 

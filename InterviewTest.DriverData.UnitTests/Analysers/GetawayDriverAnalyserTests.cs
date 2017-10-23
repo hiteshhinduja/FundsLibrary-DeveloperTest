@@ -9,6 +9,15 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 	[TestFixture]
 	public class GetawayDriverAnalyserTests
 	{
+        private GetawayDriverAnalyser analyser;
+
+        [SetUp]
+        public void Initialize()
+        {
+            analyser = new GetawayDriverAnalyser();
+            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m, PenaltyForFaultyRecording = 0.5m };
+        }
+
 		[Test]
 		public void ShouldYieldCorrectValues()
 		{
@@ -18,9 +27,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 				AnalysedDuration = TimeSpan.FromHours(1),
 				DriverRating = 0.1813m
 			};
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
 			var actualResult = analyser.Analyse(CannedDrivingData.History);
 
@@ -38,9 +45,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = TimeSpan.FromHours(0),
                 DriverRating = 0m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsOutOfPermittedTimeSlot);
 
@@ -58,9 +63,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = TimeSpan.FromHours(1),
                 DriverRating = 1m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsHavingAverageSpeedMoreThanMaxSpeed);
 
@@ -78,9 +81,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(0, 35, 0),
                 DriverRating = 0.4770m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem);
 
@@ -98,9 +99,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = TimeSpan.FromHours(1),
                 DriverRating = 0.8083m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsWithinPermittedTimeSlotHavingNoGapsBetweenThem);
 
@@ -118,9 +117,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(0, 55, 0),
                 DriverRating = 0.6875m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsOverlappingPermittedTimeSlotHavingGapsBetweenThem);
 
@@ -138,9 +135,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = TimeSpan.FromHours(0),
                 DriverRating = 0m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsWithinPermittedTimeSlotHavingZeroAverageSpeed);
 
@@ -159,9 +154,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.4770m,
                 DriverRatingAfterPenalty = 0.2385m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m, PenaltyForFaultyRecording = 0.5m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem);
 
@@ -182,9 +175,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.8083m,
                 DriverRatingAfterPenalty = 0.8083m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m, PenaltyForFaultyRecording = 0.5m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithPeriodsWithinPermittedTimeSlotHavingNoGapsBetweenThem);
 
@@ -193,6 +184,47 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
             Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty).Within(0.001m));
             Assert.AreEqual(actualResult.DriverRating, actualResult.DriverRatingAfterPenalty);
+        }
+
+        [Test]
+        public void ForSinglePeriodWithinPermittedTimeSlotHavingSameStartAndEndTime_ShouldYieldZeroRating()
+        {
+            //Arrange
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(0, 0, 0),
+                DriverRating = 0m,
+                DriverRatingAfterPenalty = 0m
+            };
+
+            //Act
+            var actualResult = analyser.Analyse(CannedDrivingData.GetawayDriverDataWithSinglePeriodWithinPermittedTimeSlotHavingSameStartAndEndTime);
+
+            //Assert
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
+            Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty));
+        }
+
+        [Test]
+        public void WhenAnalyserConfigurationIsSetToNull_ShouldYieldZeroRating()
+        {
+            //Arrange
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(0, 0, 0),
+                DriverRating = 0m,
+                DriverRatingAfterPenalty = 0m
+            };
+            analyser.AnalyserConfiguration = null;
+
+            //Act
+            var actualResult = analyser.Analyse(CannedDrivingData.History);
+
+            //Assert
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
+            Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty));
         }
 
         [Test]
@@ -205,8 +237,6 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.1813m,
                 DriverRatingAfterPenalty = 0.1813m
             };
-            var analyser = new GetawayDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(13, 0, 0), EndTime = new TimeSpan(14, 0, 0), MaxSpeed = 80m, PenaltyForFaultyRecording = 0.5m };
             var fileName = "History.csv";
             var data = CannedDataReader.LoadCannedData(fileName);
 

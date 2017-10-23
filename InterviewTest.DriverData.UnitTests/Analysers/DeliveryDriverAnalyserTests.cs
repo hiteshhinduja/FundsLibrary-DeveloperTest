@@ -9,6 +9,15 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 	[TestFixture]
 	public class DeliveryDriverAnalyserTests
 	{
+        private DeliveryDriverAnalyser analyser;
+
+        [SetUp]
+        public void Initialize()
+        {
+            analyser = new DeliveryDriverAnalyser();
+            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m };
+        }
+
 		[Test]
 		public void ShouldYieldCorrectValues()
 		{
@@ -18,11 +27,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 				AnalysedDuration = new TimeSpan(7, 45, 0),
 				DriverRating = 0.7638m
 			};
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-			var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.History);
+			var actualResult = analyser.Analyse(CannedDrivingData.History);
 
             //Assert
 			Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -38,11 +45,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsOutOfPermittedTimeSlot);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsOutOfPermittedTimeSlot);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -58,11 +63,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(5, 0, 0),
                 DriverRating = 0m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsHavingAverageSpeedMoreThanMaxSpeed);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsHavingAverageSpeedMoreThanMaxSpeed);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -78,11 +81,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(6, 0, 0),
                 DriverRating = 0.5097m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -98,11 +99,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(8, 0, 0),
                 DriverRating = 0.8090m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingNoGapsBetweenPeriods);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingNoGapsBetweenPeriods);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -118,11 +117,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsHavingSameStartAndEndTime);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsHavingSameStartAndEndTime);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -138,11 +135,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(6, 0, 0),
                 DriverRating = 0m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingZeroAverageSpeed);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingZeroAverageSpeed);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -159,11 +154,9 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.5097m,
                 DriverRatingAfterPenalty = 0.2548m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingGapsBetweenThem);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
@@ -182,17 +175,56 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.8090m,
                 DriverRatingAfterPenalty = 0.8090m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m };
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingNoGapsBetweenPeriods);
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithPeriodsWithinPermittedTimeSlotHavingNoGapsBetweenPeriods);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
             Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty).Within(0.001m));
             Assert.AreEqual(actualResult.DriverRating, actualResult.DriverRatingAfterPenalty);
+        }
+
+        [Test]
+        public void ForSinglePeriodWithinPermittedTimeSlotHavingSameStartAndEndTime_ShouldYieldZeroRating()
+        {
+            //Arrange
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(0, 0, 0),
+                DriverRating = 0m,
+                DriverRatingAfterPenalty = 0m
+            };
+
+            //Act
+            var actualResult = analyser.Analyse(CannedDrivingData.DeliveryDriverDataWithSinglePeriodWithinPermittedTimeSlotHavingSameStartAndEndTime);
+
+            //Assert
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
+            Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty));
+        }
+
+        [Test]
+        public void WhenAnalyserConfigurationIsSetToNull_ShouldYieldZeroRating()
+        {
+            //Arrange
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(0, 0, 0),
+                DriverRating = 0m,
+                DriverRatingAfterPenalty = 0m
+            };
+            analyser.AnalyserConfiguration = null;
+
+            //Act
+            var actualResult = analyser.Analyse(CannedDrivingData.History);
+
+            //Assert
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
+            Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty));
         }
 
         [Test]
@@ -205,13 +237,11 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.7638m,
                 DriverRatingAfterPenalty = 0.3819m
             };
-            var deliveryDriverAnalyser = new DeliveryDriverAnalyser();
-            deliveryDriverAnalyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m };
             var fileName = "History.csv";
             var data = CannedDataReader.LoadCannedData(fileName);
 
             //Act
-            var actualResult = deliveryDriverAnalyser.Analyse(data);
+            var actualResult = analyser.Analyse(data);
 
             //Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));

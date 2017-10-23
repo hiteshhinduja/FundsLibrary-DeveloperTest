@@ -9,6 +9,15 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 	[TestFixture]
 	public class FormulaOneAnalyserTests
 	{
+        private FormulaOneAnalyser analyser;
+
+        [SetUp]
+        public void Initialize()
+        {
+            analyser = new FormulaOneAnalyser();
+            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m, PenaltyForFaultyRecording = 0.5m };
+        }
+
 		[Test]
 		public void ShouldYieldCorrectValues()
 		{
@@ -18,9 +27,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 				AnalysedDuration = new TimeSpan(10, 3, 0),
 				DriverRating = 0.1231m
 			};
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m };
-
+            
             //Act
 			var actualResult = analyser.Analyse(CannedDrivingData.History);
 
@@ -38,9 +45,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.FormulaOneDriverDataWithPeriodsHavingZeroAverageSpeed);
 
@@ -58,9 +63,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(6, 0, 0),
                 DriverRating = 0.8470m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.FormulaOneDriverDataWithPeriodsHavingAverageSpeedMoreThanMaxSpeed);
 
@@ -78,9 +81,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(6, 0, 0),
                 DriverRating = 0.8470m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.FormulaOneDriverDataWithPeriodsHavingAverageSpeedEqualToMaxSpeed);
 
@@ -98,9 +99,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 AnalysedDuration = new TimeSpan(5, 0, 0),
                 DriverRating = 0.8835m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.FormulaOneDriverDataWithPeriodsHavingNoGapsAndAverageSpeedLessThanOrEqualToMaxSpeed);
 
@@ -119,9 +118,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.1231m,
                 DriverRatingAfterPenalty = 0.0615m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m, PenaltyForFaultyRecording = 0.5m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.History);
 
@@ -142,9 +139,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.8835m,
                 DriverRatingAfterPenalty = 0.8835m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m, PenaltyForFaultyRecording = 0.5m };
-
+            
             //Act
             var actualResult = analyser.Analyse(CannedDrivingData.FormulaOneDriverDataWithPeriodsHavingNoGapsAndAverageSpeedLessThanOrEqualToMaxSpeed);
 
@@ -153,6 +148,36 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
             Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty).Within(0.001m));
             Assert.AreEqual(actualResult.DriverRating, actualResult.DriverRatingAfterPenalty);
+        }
+
+        [Test]
+        public void ForSinglePeriodHavingSameStartAndEndTime_ShouldThrowDivideByZeroException()
+        {
+            //Arrange
+
+            //Act & Assert
+            var actualResult = Assert.Throws<DivideByZeroException>(() => analyser.Analyse(CannedDrivingData.FormulaOneDriverDataWithSinglePeriodHavingSameStartAndEndTime));
+        }
+
+        [Test]
+        public void WhenAnalyserConfigurationIsSetToNull_ShouldYieldZeroRating()
+        {
+            //Arrange
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(0, 0, 0),
+                DriverRating = 0m,
+                DriverRatingAfterPenalty = 0m
+            };
+            analyser.AnalyserConfiguration = null;
+
+            //Act
+            var actualResult = analyser.Analyse(CannedDrivingData.History);
+
+            //Assert
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
+            Assert.That(actualResult.DriverRatingAfterPenalty, Is.EqualTo(expectedResult.DriverRatingAfterPenalty));
         }
 
         [Test]
@@ -165,8 +190,6 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.1231m,
                 DriverRatingAfterPenalty = 0.0615m
             };
-            var analyser = new FormulaOneAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { MaxSpeed = 200m, PenaltyForFaultyRecording = 0.5m };
             var fileName = "History.csv";
             var data = CannedDataReader.LoadCannedData(fileName);
 

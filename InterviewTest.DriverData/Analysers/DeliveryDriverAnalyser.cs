@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace InterviewTest.DriverData.Analysers
 {
-    // BONUS: Why internal?
+    // BONUS: Why internal?    
     internal class DeliveryDriverAnalyser : IAnalyser
     {
         public AnalyserConfiguration AnalyserConfiguration { get; set; }
@@ -30,8 +30,8 @@ namespace InterviewTest.DriverData.Analysers
             double duration = 0;
             decimal rating = 0;
 
-            //Return 0 duration and 0 rating if no periods available
-            if (history == null || history.Count == 0)
+            //Return 0 duration and 0 rating if no periods available or if configuration is not set
+            if (AnalyserConfiguration == null || history == null || history.Count == 0)
             {
                 return new HistoryAnalysis
 
@@ -71,7 +71,7 @@ namespace InterviewTest.DriverData.Analysers
                 }
                 //For intermediate records, Check for the gaps between current record's start time and previous record's end time
                 //If there is a gap, then calculate undocumented period and rating
-                if (i > 0 && history.ElementAt(i).Start > history.ElementAt(i - 1).End)
+                if (i > 0 && history.ElementAt(i).Start.TimeOfDay > AnalyserConfiguration.StartTime && history.ElementAt(i).Start > history.ElementAt(i - 1).End)
                 {
                     duration = (history.ElementAt(i).Start - history.ElementAt(i - 1).End).TotalMinutes;
 

@@ -669,5 +669,35 @@ namespace InterviewTest.DriverData
                 AverageSpeed = 0m
             }
         };
+
+        public static readonly IReadOnlyCollection<Period> DeliveryDriverDataWithSinglePeriodWithinPermittedTimeSlotHavingSameStartAndEndTime = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(9, 0, 0),
+                AverageSpeed = 29m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverDataWithSinglePeriodHavingSameStartAndEndTime = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(9, 0, 0),
+                AverageSpeed = 198m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> GetawayDriverDataWithSinglePeriodWithinPermittedTimeSlotHavingSameStartAndEndTime = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(13, 0, 0),
+                End = _day + new TimeSpan(13, 0, 0),
+                AverageSpeed = 67m
+            }
+        };
     }
 }
