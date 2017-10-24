@@ -1,9 +1,10 @@
 Task wise implementation details
 
 Followed TDD Approach for each task:
+Added entities, interfaces, skeleton classes as applicable for the task
 Added unit test case for all possible scenarios
 Executed test cases for unimplemented code which resulted in failure
-Added entities, interfaces, implementation logic as applicable for the task
+Implemented business logic as for the task
 Re-ran unit test cases and checked whether they passed
 
 Task 1
