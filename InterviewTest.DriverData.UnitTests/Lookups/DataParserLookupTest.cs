@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 namespace InterviewTest.DriverData.UnitTests.Lookups
 {
     [TestFixture]
-    public class DataReaderLookupTest
+    public class DataParserLookupTest
     {
         [Test]
         public void ShouldCreateCsvDataReaderInstance()
         {
             //Arrange
-            var readerType = "Csv";
+            var parserType = "Csv";
 
             //Act
-            var readerInstance = DataReaderLookup.GetReader(readerType);
+            var parserInstance = DataParserLookup.GetParser(parserType);
 
             //Assert
-            Assert.IsInstanceOf(typeof(CsvDataReader), readerInstance);
+            Assert.IsInstanceOf(typeof(CsvDataParser), parserInstance);
         }
 
         [Test]
         public void ShouldThrowArgumentOutOfRangeException()
         {
             //Arrange
-            var readerType = "SomeOtherReader";
+            var parserType = "SomeOtherParser";
             //Act & Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => DataReaderLookup.GetReader(readerType));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => DataParserLookup.GetParser(parserType));
         }
     }
 }

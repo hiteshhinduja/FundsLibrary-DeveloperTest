@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace InterviewTest.DriverData.Helpers.Interfaces
 {
-    public interface ICannedDataReader
+    public interface IContentReader
     {
-        List<Period> GetData(string source);
+        string ReadData(string source);
     }
 }

@@ -89,9 +89,9 @@ namespace InterviewTest.DriverData.Analysers
                     }
 
                     //Check if average speed is greater than maximum permitted speed.
-                    //If yes, then assign 1 rating
+                    //If yes, then assign rating configured for exceeding maximum speed
                     //If no, then calculate the rating by linearly mapping the average speeds between 0 and maximum speed to 0-1
-                    rating = (history.ElementAt(i).AverageSpeed > AnalyserConfiguration.MaxSpeed) ? 1 : (history.ElementAt(i).AverageSpeed / AnalyserConfiguration.MaxSpeed);
+                    rating = (history.ElementAt(i).AverageSpeed > AnalyserConfiguration.MaxSpeed) ? AnalyserConfiguration.RatingForExceedingMaxSpeed : (history.ElementAt(i).AverageSpeed / AnalyserConfiguration.MaxSpeed);
 
                     //Create result set containing Start and End time along with calculated rating
                     result = new Result() { StartTime = history.ElementAt(i).Start.TimeOfDay, EndTime = history.ElementAt(i).End.TimeOfDay, Rating = rating };

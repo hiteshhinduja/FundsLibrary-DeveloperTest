@@ -50,8 +50,8 @@
     <Compile Include="Analysers\DeliveryDriverAnalyserTests.cs" />
     <Compile Include="Analysers\GetawayDriverAnalyserTests.cs" />
     <Compile Include="Analysers\FriendlyAnalyserTests.cs" />
-    <Compile Include="DataReader\CsvDataReaderTests.cs" />
-    <Compile Include="Lookups\DataReaderLookupTest.cs" />
+    <Compile Include="DataReader\CsvDataParserTests.cs" />
+    <Compile Include="Lookups\DataParserLookupTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

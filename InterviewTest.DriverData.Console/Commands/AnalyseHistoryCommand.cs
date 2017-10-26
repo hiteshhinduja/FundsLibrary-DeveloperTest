@@ -37,8 +37,9 @@ namespace InterviewTest.Commands
             //Get the path of directory in which data files are kept from the configuration file
             //Combine the directory path with the file name provided as input
             string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], _source);
-            var reader = DataReaderLookup.GetReader("Csv");
-            var data = reader.GetData(path);
+            var reader = ContentReaderLookup.GetContentReader();
+            var parser = DataParserLookup.GetParser("Csv");
+            var data = parser.ParseData(reader.ReadData(path));
 			var analysis = _analyser.Analyse(data);
 
 			Console.Out.WriteLine($"Analysed period: {analysis.AnalysedDuration:g}");

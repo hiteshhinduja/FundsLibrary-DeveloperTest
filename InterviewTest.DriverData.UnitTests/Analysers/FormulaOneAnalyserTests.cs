@@ -16,7 +16,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [SetUp]
         public void Initialize()
         {
-            analyser = new FormulaOneAnalyser(new AnalyserConfiguration() { MaxSpeed = 200m, PenaltyForFaultyRecording = 0.5m });
+            analyser = new FormulaOneAnalyser(new AnalyserConfiguration() { MaxSpeed = 200m, RatingForExceedingMaxSpeed = 1, PenaltyForFaultyRecording = 0.5m });
         }
 
 		[Test]
@@ -192,11 +192,13 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRatingAfterPenalty = 0.0615m
             };
             var fileName = "History.csv";
-            var reader = DataReaderLookup.GetReader("Csv");
             //Get the path of directory in which data files are kept from the configuration file
             //Combine the directory path with the file name provided as input
             string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], fileName);
-            var data = reader.GetData(path);
+            var reader = ContentReaderLookup.GetContentReader();
+            var content = reader.ReadData(path);
+            var parser = DataParserLookup.GetParser("Csv");
+            var data = parser.ParseData(content);
 
             //Act
             var actualResult = analyser.Analyse(data);

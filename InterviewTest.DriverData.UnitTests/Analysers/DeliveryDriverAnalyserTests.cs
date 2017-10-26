@@ -16,7 +16,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [SetUp]
         public void Initialize()
         {
-            analyser = new DeliveryDriverAnalyser(new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m });
+            analyser = new DeliveryDriverAnalyser(new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, RatingForExceedingMaxSpeed = 0,PenaltyForFaultyRecording = 0.5m });
         }
 
 		[Test]
@@ -229,7 +229,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         }
 
         [Test]
-        public void WhenValidHistoryDataIsLoadedFromFile_ShouldYieldCorrectValues()
+        public void WhenValidHistoryDataIsLoadedFromCsvFile_ShouldYieldCorrectValues()
         {
             //Arrange
             var expectedResult = new HistoryAnalysis
@@ -239,11 +239,13 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRatingAfterPenalty = 0.3819m
             };
             var fileName = "History.csv";
-            var reader = DataReaderLookup.GetReader("Csv");
             //Get the path of directory in which data files are kept from the configuration file
             //Combine the directory path with the file name provided as input
             string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], fileName);
-            var data = reader.GetData(path);
+            var reader = ContentReaderLookup.GetContentReader();
+            var content = reader.ReadData(path);
+            var parser = DataParserLookup.GetParser("Csv");
+            var data = parser.ParseData(content);
 
             //Act
             var actualResult = analyser.Analyse(data);

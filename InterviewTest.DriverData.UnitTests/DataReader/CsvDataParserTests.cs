@@ -12,41 +12,31 @@ using System.Threading.Tasks;
 namespace InterviewTest.DriverData.UnitTests.DataReader
 {
     [TestFixture]
-    public class CsvDataReaderTests
+    public class CsvDataParserTests
     {
-        private ICannedDataReader reader;
+        private ICannedDataParser parser;
         [SetUp]
         public void Initialize()
         {
-            reader = DataReaderLookup.GetReader("Csv");
+            parser = DataParserLookup.GetParser("Csv");
         }
 
         [Test]
-        public void WhenCorrectFileNameIsPassed_ShouldLoadAppropriateData()
+        public void WhenCorrectFileIsPassed_ShouldLoadAppropriateData()
         {
             //Arrange
             var fileName = "History.csv";
             //Get the path of directory in which data files are kept from the configuration file
             //Combine the directory path with the file name provided as input
             string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], fileName);
+            var reader = ContentReaderLookup.GetContentReader();
+            var content = reader.ReadData(path);
             //Act
-            var data = reader.GetData(path);
+            var data = parser.ParseData(content);
 
             //Assert
             Assert.IsNotNull(data);
-        }
-
-        [Test]
-        public void WhenIncorrectFileNameIsPassed_ShouldThrowException()
-        {
-            //Arrange
-            var fileName = "IncorrectFileName.txt";
-            //Get the path of directory in which data files are kept from the configuration file
-            //Combine the directory path with the file name provided as input
-            string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], fileName);
-
-            //Act & Assert
-            var exception = Assert.Throws<Exception>(() => reader.GetData(path));
+            Assert.That(data.Any());
         }
     }
 }

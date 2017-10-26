@@ -10,7 +10,7 @@ Re-ran unit test cases and checked whether they passed
 Task 1
 1.1 Delivery Driver Analysis
 
-Created AnalysisConfiguration entity for storing Permitted start and end times along with maximum speed allowed
+Created AnalysisConfiguration entity for storing Permitted start and end times along with maximum speed allowed and rating to be given if average speed exceeds maximum speed
 Created Result entity for storing rating, duration, start and end times for each period considered (documented and undocumented)
 Implemented code to analyse data in DeliveryDriverAnalyser by considering documented and undocumented periods as per the configuration given.
 Created Helper class RatingCalculator to calculate overall rating from the given result set
@@ -35,17 +35,18 @@ Updated the code for all analysers to apply penalty after calculating overall ra
 
 Task 2 Better Analyser Lookup(Dependency Inversion)
 
-Created analyser factory interface and factory classes for each analyser with CreateAnalyser method that takes AnalysisConfiguration as input and returns analyser instance with that configuration
-Added a dictionary in AnalyserLookup class which contains registered analysers along with a delegate call to respective analyser factories
-AnalyserLookup refers this dictionary with the analyser type received to return appropriate analyser instance which is in turn provided by factory.
+Added a dictionary in AnalyserLookup class which contains registered analysers along with a delegate call to respective analyser constructor which takes AnalysisConfiguration as input and returns analyser instance with given configuration
+AnalyserLookup refers this dictionary with the analyser type received to return appropriate analyser instance.
 
 Task 3 Read Canned Data from file
 
-Added unit test cases for data reader for different possible scenarios
+Chose .csv as data file containing CannedData
+Added unit test case for parsing csv data
 Added unit test cases for each analyser where data is read from file
 Created .csv file containing information for different periods
 Added base directory path in app.config of tests and console. This path points to the directory where .csv data files will be available
-Created a CannedDataReader which accepts file name as input, parses the file and returns list of periods
+Created a FileReader which accepts absolute path containing file name as input and returns file content as string
+Created a CsvDataParser which accepts string data as input, parses the data and returns list of periods
 
 Task 4 Improve the tests
 

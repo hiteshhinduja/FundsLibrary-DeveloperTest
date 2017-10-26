@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace InterviewTest.DriverData.Helpers
 {
-    public class CsvDataReader : ICannedDataReader
+    public class CsvDataParser : ICannedDataParser
     {
-        public List<Period> GetData(string source)
+        public List<Period> ParseData(string data)
         {
-            List<Period> data = new List<Period>();
+            List<Period> listOfPeriods = new List<Period>();
 
             try
             {
-                //Read the file if the path is correct, otherwise throw exception
-                using (var reader = new StreamReader(source))
+                //Read the data into streamreader
+                using (var reader = GenerateStreamFromString(data))
                 {
                     //Read line by line till the end of file is reached
                     while (!reader.EndOfStream)
@@ -36,18 +36,23 @@ namespace InterviewTest.DriverData.Helpers
                         period.AverageSpeed = Convert.ToDecimal(values[2]);
 
                         //Add this period to the data list
-                        data.Add(period);
+                        listOfPeriods.Add(period);
                     }
                 }
             }
             //Catch the exception (if any) occurred while loading the data from file
             catch (Exception ex)
             {
-                //Throw the exception with custom message containing the name of file which caused error while parsing.
-                throw new Exception($"Error occurred while reading the data from file {source}. {ex.Message}");
+                //Throw the exception if any error occurs while parsing.
+                throw new Exception($"Error occurred while parsing the data. {ex.Message}");
             }
 
-            return data;
+            return listOfPeriods;
+        }
+
+        private StreamReader GenerateStreamFromString(string content)
+        {
+            return new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(content ?? "")));
         }
     }
 }
