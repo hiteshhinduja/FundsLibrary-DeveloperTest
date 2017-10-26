@@ -3,6 +3,8 @@ using InterviewTest.DriverData.Analysers;
 using NUnit.Framework;
 using InterviewTest.DriverData.Entities;
 using InterviewTest.DriverData.Helpers;
+using System.IO;
+using System.Configuration;
 
 namespace InterviewTest.DriverData.UnitTests.Analysers
 {
@@ -14,8 +16,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [SetUp]
         public void Initialize()
         {
-            analyser = new DeliveryDriverAnalyser();
-            analyser.AnalyserConfiguration = new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m };
+            analyser = new DeliveryDriverAnalyser(new AnalyserConfiguration() { StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(17, 0, 0), MaxSpeed = 30m, PenaltyForFaultyRecording = 0.5m });
         }
 
 		[Test]
@@ -238,7 +239,11 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRatingAfterPenalty = 0.3819m
             };
             var fileName = "History.csv";
-            var data = CannedDataReader.LoadCannedData(fileName);
+            var reader = DataReaderLookup.GetReader("Csv");
+            //Get the path of directory in which data files are kept from the configuration file
+            //Combine the directory path with the file name provided as input
+            string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], fileName);
+            var data = reader.GetData(path);
 
             //Act
             var actualResult = analyser.Analyse(data);

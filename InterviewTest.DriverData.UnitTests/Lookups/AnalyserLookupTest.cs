@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using InterviewTest.DriverData;
 using InterviewTest.DriverData.Analysers;
 
-namespace InterviewTest.DriverData.UnitTests.AnalyserTypeLookup
+namespace InterviewTest.DriverData.UnitTests.Lookup
 {
     [TestFixture]
     public class AnalyserLookupTest

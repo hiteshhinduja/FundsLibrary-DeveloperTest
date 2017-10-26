@@ -50,12 +50,9 @@
     <Compile Include="CannedData.cs" />
     <Compile Include="Entities\AnalyserConfiguration.cs" />
     <Compile Include="Entities\Result.cs" />
-    <Compile Include="Factories\DeliveryDriverAnalyserFactory.cs" />
-    <Compile Include="Factories\FormulaOneDriverAnalyserFactory.cs" />
-    <Compile Include="Factories\FriendlyDriverAnalyserFactory.cs" />
-    <Compile Include="Factories\GetawayDriverAnalyserFactory.cs" />
-    <Compile Include="Factories\IAnalyserFactory.cs" />
-    <Compile Include="Helpers\CannedDataReader.cs" />
+    <Compile Include="Helpers\CsvDataReader.cs" />
+    <Compile Include="Helpers\DataReaderLookup.cs" />
+    <Compile Include="Helpers\Interfaces\ICannedDataReader.cs" />
     <Compile Include="Helpers\RatingCalculator.cs" />
     <Compile Include="HistoryAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

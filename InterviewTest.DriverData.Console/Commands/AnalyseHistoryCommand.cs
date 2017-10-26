@@ -4,6 +4,8 @@ using System.Linq;
 using InterviewTest.DriverData;
 using InterviewTest.DriverData.Analysers;
 using InterviewTest.DriverData.Helpers;
+using System.IO;
+using System.Configuration;
 
 namespace InterviewTest.Commands
 {
@@ -18,21 +20,25 @@ namespace InterviewTest.Commands
          */
 		private readonly IAnalyser _analyser;
 
-        private readonly string _fileName;
+        private readonly string _source;
 
 		public AnalyseHistoryCommand(IReadOnlyCollection<string> arguments)
 		{
             //Read the first argument which is analyser type
 			var analysisType = arguments.ElementAt(0);
             //Read the second argument which is name of the file from which data is to be loaded for anlysis
-            _fileName = arguments.ElementAt(1);
+            _source = arguments.ElementAt(1);
             //Get appropriate analyzer instance based on type
 			_analyser = AnalyserLookup.GetAnalyser(analysisType);
 		}
 
 		public void Execute()
 		{
-            var data = CannedDataReader.LoadCannedData(_fileName);
+            //Get the path of directory in which data files are kept from the configuration file
+            //Combine the directory path with the file name provided as input
+            string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], _source);
+            var reader = DataReaderLookup.GetReader("Csv");
+            var data = reader.GetData(path);
 			var analysis = _analyser.Analyse(data);
 
 			Console.Out.WriteLine($"Analysed period: {analysis.AnalysedDuration:g}");

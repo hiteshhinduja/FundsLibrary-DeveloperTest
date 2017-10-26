@@ -1,6 +1,6 @@
-﻿using System;
+﻿using InterviewTest.DriverData.Helpers.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,20 +9,16 @@ using System.Threading.Tasks;
 
 namespace InterviewTest.DriverData.Helpers
 {
-    public static class CannedDataReader
+    public class CsvDataReader : ICannedDataReader
     {
-        public static List<Period> LoadCannedData(string fileName)
+        public List<Period> GetData(string source)
         {
             List<Period> data = new List<Period>();
 
             try
             {
-                //Get the path of directory in which data files (.csv format) are kept from the configuration file
-                //Combine the directory path with the file name provided as input
-                string path = Path.Combine(ConfigurationManager.AppSettings["CannedDataDirectoryPath"], fileName);
-
-                //Read the file if the path and file name are correct, otherwise throw exception
-                using (var reader = new StreamReader(path))
+                //Read the file if the path is correct, otherwise throw exception
+                using (var reader = new StreamReader(source))
                 {
                     //Read line by line till the end of file is reached
                     while (!reader.EndOfStream)
@@ -45,10 +41,10 @@ namespace InterviewTest.DriverData.Helpers
                 }
             }
             //Catch the exception (if any) occurred while loading the data from file
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //Throw the exception with custom message containing the name of file which caused error while parsing.
-                throw new Exception($"Error occurred while reading the data from file {fileName}. {ex.Message}");
+                throw new Exception($"Error occurred while reading the data from file {source}. {ex.Message}");
             }
 
             return data;

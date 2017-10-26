@@ -17,11 +17,6 @@ namespace InterviewTest.DriverData.Analysers
     {
         public AnalyserConfiguration AnalyserConfiguration { get; set; }
 
-        public DeliveryDriverAnalyser()
-        {
-
-        }
-
         public DeliveryDriverAnalyser(AnalyserConfiguration _analysisConfiguration)
         {
             AnalyserConfiguration = _analysisConfiguration;
